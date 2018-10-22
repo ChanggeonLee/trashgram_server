@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 var schema = new Schema({
     img: { type:String },
     location: { type:String },
-    hastag: { type:Array }, // [string] 
+    hastag: [], // [string] 
     day: { type:String },
     //auth: user.id
 });
