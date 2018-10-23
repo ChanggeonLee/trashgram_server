@@ -17,6 +17,9 @@ var userRouter = require('./routes/users');
 var passportConfig = require('./lib/passport-config');
 
 var app = express();
+server = http.createServer(app)
+
+server.listen(5000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
