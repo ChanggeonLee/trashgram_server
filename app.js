@@ -6,7 +6,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var methodOverride = require('method-override');
-var passport = require('passport');
+//var passport = require('passport');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware')
 // router require
@@ -14,12 +14,9 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
 
 // require passportconfig
-var passportConfig = require('./lib/passport-config');
+//var passportConfig = require('./lib/passport-config');
 
 var app = express();
-server = http.createServer(app)
-
-server.listen(5000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,15 +24,15 @@ app.set('view engine', 'pug');
 
 // html예쁘게 출력
 //if (app.get('env') == 'development') {
-app.locals.pretty = true;  
+// app.locals.pretty = true;  
 //}
 
-// // mongodb connect
-// mongoose.Promise = global.Promise; // ES6 Native Promise를 mongoose에서 사용한다.
-// // const connStr = process.env.MONGOURL;
-// const connStr = 'mongodb://localhost:27017/test';
-// mongoose.connect(connStr);
-// mongoose.connection.on('error', console.error);
+// mongodb connect
+mongoose.Promise = global.Promise; // ES6 Native Promise를 mongoose에서 사용한다.
+// const connStr = process.env.MONGOURL;
+const connStr = 'mongodb://localhost:27017/test';
+mongoose.connect(connStr, { useNewUrlParser: true });
+mongoose.connection.on('error', console.error);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -69,9 +66,9 @@ app.use(session({
 //=======================================================
 // Passport 초기화
 //=======================================================
-app.use(passport.initialize());
-app.use(passport.session());
-passportConfig(passport);
+//app.use(passport.initialize());
+//app.use(passport.session());
+//p/assportConfig(passport);
 
 // pug의 local에 현재 사용자 정보와 flash 메시지를 전달하자.
 app.use(function(req, res, next) {
@@ -83,7 +80,7 @@ app.use(function(req, res, next) {
 //Route
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-require('./routes/auth')(app, passport);
+//require('./routes/auth')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
