@@ -18,15 +18,6 @@ var userRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-// html예쁘게 출력
-//if (app.get('env') == 'development') {
-// app.locals.pretty = true;  
-//}
-
 // mongodb connect
 mongoose.Promise = global.Promise; // ES6 Native Promise를 mongoose에서 사용한다.
 // const connStr = process.env.MONGOURL;
@@ -73,7 +64,6 @@ app.use(session({
 // pug의 local에 현재 사용자 정보와 flash 메시지를 전달하자.
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;  // passport는 req.user로 user정보 전달
-  // res.locals.flashMessages = req.flash();
   next();
 });
 

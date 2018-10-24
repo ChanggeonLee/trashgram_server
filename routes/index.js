@@ -11,7 +11,12 @@ router.get('/', function(req, res, next) {
   res.json(info)
 });
 
-router.post('/', function(req, res, next) {
+router.post('/hashtag', function(req, res, next) {
+  console.log(req.body);
+  console.log("POST POST");
+});
+
+router.post('/img', function(req, res, next) {
   console.log(req.body);
   console.log("POST POST");
 });
