@@ -1,34 +1,14 @@
-module.exports = (app, passport) => {
+var express = require('express');
+var router = express.Router();
 
-  // app.get('/auth', (req, res, next) => {
-    
-  //   res.json('signin');
-  // });
-  
-  // facebook login
-  app.get('/auth/facebook',
-    passport.authenticate('facebook', { scope : 'email' })
-  );
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
 
-  app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-      failureRedirect : '/signin',
-      failureFlash : true // allow flash messages
-    }), (req, res, next) => {
-      var info = {
-        flag:'login'
-      }
-      res.json(flag);
-    }
-  );
-
-  // logout
-  app.get('/signout', (req, res) => {
-    var info = {
-      flag:'logout',
-    }
-    req.logout();
-    req.flash('success', '로그아웃 성공~');
-    res.json(info);
-  });
-};
+router.post('/', function(req, res, next) {
+  console.log(req.body);
+  console.log("POST POST");
+  res.json();
+});
+module.exports = router;
