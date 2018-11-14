@@ -5,7 +5,8 @@ var schema = new Schema({
     name: {type: String, required: true , trim: true},
     info: {type:String},
     location: {type:String},
-    facebook: {id:String, token: String, photo:String}
+    facebook: {id:String, token: String, photo:String},
+    score: {type:Number},
 })
 
 var User = mongoose.model('User', schema);
