@@ -1,0 +1,7 @@
+chair
+glass
+metal
+normal
+paper
+plastic
+plastic_bag
