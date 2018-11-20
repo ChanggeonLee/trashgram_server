@@ -22,8 +22,12 @@ router.post('/hashtag', function(req, res, next) {
   res.json();
 });
 
-router.post('/img',upload.single('photo'), (req, res,next) => {
-  console.log(req.file)
+
+//other imports and code will go here
+router.post('/img',upload.single('photo'), async(req, res,next) => {
+  // var image_path = req.file.path;
+  
+  var image_path = req.file.path;
   fs.readFile(req.file.path,(err, contents)=> {
     if (err) {
     console.log('Error: ', err);
