@@ -4,6 +4,8 @@ var fs = require('fs');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' }); //setting the default folder for multer
 
+const exec = require('await-exec')
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // const info = [
@@ -29,7 +31,18 @@ router.post('/img',upload.single('photo'), (req, res,next) => {
     console.log('File contents ',contents);
     }
   });
-  res.json();
+  
+  var cmd = 'python \
+  ./tfmodel/label_image.py \
+  --graph=./tfmodel/output_graph.pb \
+  --labels=./tfmodel/output_labels.txt \
+  --input_layer=Placeholder \
+  --output_layer=final_result \
+  --image=./' + image_path;
+    
+  const { stdout, stderr } = await exec(cmd);
+  console.log(stdout.split(" ")[0]);
+  
 });
 
 module.exports = router;
