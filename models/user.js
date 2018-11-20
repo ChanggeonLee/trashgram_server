@@ -3,12 +3,13 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
     name: {type: String, required: true , trim: true},
-    info: {type:String},
-    location: {type:String},
-    facebook: {id:String, token: String, photo:String},
+    facebook: {id:String, photo:String, email:String},
     score: {type:Number},
 })
 
 var User = mongoose.model('User', schema);
 
 module.exports = User;
+
+
+
