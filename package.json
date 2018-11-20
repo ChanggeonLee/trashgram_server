@@ -21,6 +21,7 @@
     "node-sass-middleware": "^0.11.0",
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
-    "passport-facebook": "^2.1.1"
+    "passport-facebook": "^2.1.1",
+    "request": "^2.88.0"
   }
 }

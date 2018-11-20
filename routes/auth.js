@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -14,12 +15,15 @@ router.post('/', async(req, res, next) => {
     url: 'https://graph.facebook.com/v2.5/me?fields=email,name,picture',
     method: 'GET',
     qs: {
-        "access_token": req.user.facebook.token
+        "access_token": req.body.token
     },
     }, function (error, response, body) {
     res.setHeader('Content-Type', 'application/json');
     res.send(body);
   });
+
+
+  var data = await request("");
   console.log(data);
   
   res.json(info);
