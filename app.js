@@ -6,15 +6,16 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var methodOverride = require('method-override');
-//var passport = require('passport');
+var passport = require('passport');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware')
 // router require
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
 
 // require passportconfig
-//var passportConfig = require('./lib/passport-config');
+var passportConfig = require('./lib/passport-config');
 
 var app = express();
 
@@ -57,9 +58,9 @@ app.use(session({
 //=======================================================
 // Passport 초기화
 //=======================================================
-//app.use(passport.initialize());
-//app.use(passport.session());
-//p/assportConfig(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+passportConfig(passport);
 
 // pug의 local에 현재 사용자 정보와 flash 메시지를 전달하자.
 app.use(function(req, res, next) {
@@ -70,7 +71,7 @@ app.use(function(req, res, next) {
 //Route
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-//require('./routes/auth')(app, passport);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
