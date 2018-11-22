@@ -22,7 +22,7 @@ var app = express();
 // mongodb connect
 mongoose.Promise = global.Promise; // ES6 Native Promise를 mongoose에서 사용한다.
 // const connStr = process.env.MONGOURL;
-const connStr = 'mongodb://localhost:27017/test';
+const connStr = 'mongodb://localhost:27017/trash';
 mongoose.connect(connStr, { useNewUrlParser: true });
 mongoose.connection.on('error', console.error);
 

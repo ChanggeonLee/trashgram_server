@@ -4,8 +4,9 @@ var fs = require('fs');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' }); //setting the default folder for multer
 
-const exec = require('await-exec')
+const exec = require('await-exec');
 
+const Post = require('../models/post');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // const info = [
@@ -16,10 +17,20 @@ router.get('/', function(req, res, next) {
   // res.json(info)
 });
 
-router.post('/hashtag', function(req, res, next) {
+router.post('/hashtag', async(req, res, next) => {
   console.log(req.body);
   console.log("POST POST");
-  res.json();
+
+  const info = {data:'success'}; 
+
+  var postimg = new Post({
+    img : req.body.path,
+    hashtag : req.body.tag,
+  });
+
+  await postimg.save();
+
+  res.json(info);
 });
 
 
@@ -45,8 +56,15 @@ router.post('/img',upload.single('photo'), async(req, res,next) => {
   --image=./' + image_path;
     
   const { stdout, stderr } = await exec(cmd);
-  console.log(stdout.split(" ")[0]);
+  console.log();
+  var hashtag = stdout.split(" ")[0]
   
+  var info = { 
+    tag : hashtag,
+    path : req.file.path
+  }
+  console.log (info);
+  res.json(info);
 });
 
 module.exports = router;

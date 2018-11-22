@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var schema = new Schema({
-    author: {tyep:Schema.Types.ObjectId, ref: 'User'},
+    // author: {tyep:Schema.Types.ObjectId, ref: 'User'},
     img: {type: String, required: true , trim: true},
-    location: {type: String, required: true},
-    hashtag: [String],
-    day: {type:String},
+    hashtag: {type: String, required: true, trim: true},
+    createdAt: {type: Date, default: Date.now}
 })
 
 var Post = mongoose.model('Post', schema);

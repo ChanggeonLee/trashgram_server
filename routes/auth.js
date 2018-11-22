@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
+
+
+const User = require('../models/user');
 
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -8,24 +10,25 @@ var request = require('request');
 // });
 
 router.post('/', async(req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const info = {data:"success"}
 
-  // var data = await request({
-  //   url: 'https://graph.facebook.com/v2.5/me?fields=email,name,picture',
-  //   method: 'GET',
-  //   qs: {
-  //       "access_token": req.body.token
-  //   },
-  //   }, function (error, response, body) {
-  //   res.setHeader('Content-Type', 'application/json');
-  //   res.send(body);
-  // });
-
-
-  var data = await request("https://graph.facebook.com/v2.5/me?fields=email,name,picture&access_token="+req.body.token);
-  console.log(data);
-
+  var user = await User.findOne({id:req.body.id});
+  if (!user){
+    user = new User({
+      name : req.body.name,
+      id : req.body.id,
+      facebook:{
+        photo: req.body.picture,
+        email: req.body.email,
+      }
+    });
+    user.score = 0;
+    console.log(user);
+    await user.save();  
+  }
+  
+  
   res.json(info);
 });
 module.exports = router;
