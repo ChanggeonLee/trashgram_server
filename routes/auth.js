@@ -13,11 +13,11 @@ router.post('/', async(req, res, next) => {
   // console.log(req.body);
   const info = {data:"success"}
 
-  var user = await User.findOne({id:req.body.id});
+  var user = await User.findOne({token:req.body.token});
   if (!user){
     user = new User({
       name : req.body.name,
-      id : req.body.id,
+      token : req.body.token,
       facebook:{
         photo: req.body.picture,
         email: req.body.email,

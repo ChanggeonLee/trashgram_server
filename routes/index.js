@@ -7,6 +7,8 @@ var upload = multer({ dest: 'uploads/' }); //setting the default folder for mult
 const exec = require('await-exec');
 
 const Post = require('../models/post');
+const User = require('../models/user');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // const info = [
@@ -20,16 +22,18 @@ router.get('/', function(req, res, next) {
 router.post('/hashtag', async(req, res, next) => {
   console.log(req.body);
   console.log("POST POST");
-
+  var user = await User.findOne({token:req.body.token});
+  user.score += 1;
   const info = {data:'success'}; 
-
+  
   var postimg = new Post({
+    author : user._id,
     img : req.body.path,
     hashtag : req.body.tag,
   });
-
+   
   await postimg.save();
-
+  await user.save();
   res.json(info);
 });
 

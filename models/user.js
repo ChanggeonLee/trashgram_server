@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
     name: {type: String, required: true , trim: true},
-    id: {type: String, required: true , trim: true},
+    token: {type: String, required: true , trim: true},
     facebook: {photo:String, email:String},
     score: {type:Number},
 })
