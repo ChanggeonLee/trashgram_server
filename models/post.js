@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 var schema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     img: {type: String, required: true , trim: true},
-    hashtag: {type: String, required: true, trim: true},
+    hashtag: {type: String},
+    recycle: {type: String , required: true},
     createdAt: {type: Date, default: Date.now}
 }, {
     toJSON:{virtuals:true},

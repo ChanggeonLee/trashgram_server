@@ -1,13 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
 const User = require('../models/user');
-
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
 router.post('/', async(req, res, next) => {
   // console.log(req.body);
@@ -30,5 +24,21 @@ router.post('/', async(req, res, next) => {
   
   
   res.json(info);
+});
+
+/* GET users listing. */
+router.post('/info', async(req, res, next) => {
+  console.log(req.body);
+  // var user = await User.findOne({token:req.body.token});
+  var user = await User.find();
+  console.log(user);
+  if(user){
+    var info = {
+      name: user.name,
+      picture: user.facebook.photo,
+      score: user.score,
+    }
+    res.json(info);
+  }
 });
 module.exports = router;
