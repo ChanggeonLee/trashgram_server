@@ -68,9 +68,10 @@ router.get('/imglist', async(req, res, next) => {
   res.json(posts);
 });
 
-router.get('/myimglist', async(req, res, next) => {
+router.post('/myimglist', async(req, res, next) => {
   console.log(req.body.id);
   user = await User.findOne({id:req.body.id});
+  console.log(user);
   posts = await Post.find({author:user._id}).populate('author').limit(10);
   console.log(posts);
   res.json(posts);
