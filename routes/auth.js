@@ -37,4 +37,9 @@ router.post('/info', async(req, res, next) => {
   console.log(info);
   res.json(info);
 });
+
+router.post('/list', async(req, res, next) => {
+  var user = await User.find();
+  res.json(user);
+})
 module.exports = router;
