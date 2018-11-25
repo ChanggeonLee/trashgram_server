@@ -9,23 +9,10 @@ const exec = require('await-exec');
 const Post = require('../models/post');
 const User = require('../models/user');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  // const info = [
-  //   {data: 'it so hard how con i do for study react-native'},
-  //   {data: 'it for test'},
-  //   {data: 'networking with node.js server'},    
-  // ]
-  // res.json(info)
-});
 
 router.post('/hashtag', async(req, res, next) => {
-  // console.log(req.body);
-  // console.log("POST POST");
   var tag_data = "#"+req.body.tag;
-  // console.log(tag_data);
-
-  var user = await User.findOne({token:req.body.token});
+  var user = await User.findOne({id:req.body.id});
   user.score += 1;
   const info = {data:'success'}; 
   
@@ -36,8 +23,6 @@ router.post('/hashtag', async(req, res, next) => {
     recycle : tag_data, 
   });
    
-  // console.log("post " + postimg);
-  // console.log("user " + user);
   await postimg.save();
   await user.save();
   res.json(info);
@@ -78,7 +63,15 @@ router.post('/img',upload.single('photo'), async(req, res,next) => {
 });
 
 router.get('/imglist', async(req, res, next) => {
-  posts = await Post.find().limit(10);
+  posts = await Post.find().populate('author').limit(10);
+  console.log(posts);
+  res.json(posts);
+});
+
+router.get('/myimglist', async(req, res, next) => {
+  console.log(req.body.id);
+  user = await User.findOne({id:req.body.id});
+  posts = await Post.find({author:user._id}).populate('author').limit(10);
   console.log(posts);
   res.json(posts);
 });

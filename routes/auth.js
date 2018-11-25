@@ -7,11 +7,11 @@ router.post('/', async(req, res, next) => {
   // console.log(req.body);
   const info = {data:"success"}
 
-  var user = await User.findOne({token:req.body.token});
+  var user = await User.findOne({id:req.body.id});
   if (!user){
     user = new User({
       name : req.body.name,
-      token : req.body.token,
+      id : req.body.id,
       facebook:{
         photo: req.body.picture,
         email: req.body.email,
@@ -21,24 +21,20 @@ router.post('/', async(req, res, next) => {
     console.log(user);
     await user.save();  
   }
-  
-  
   res.json(info);
 });
 
 /* GET users listing. */
 router.post('/info', async(req, res, next) => {
   console.log(req.body);
-  // var user = await User.findOne({token:req.body.token});
-  var user = await User.find();
-  console.log(user);
-  if(user){
-    var info = {
-      name: user.name,
-      picture: user.facebook.photo,
-      score: user.score,
-    }
-    res.json(info);
+  var user = await User.findOne({id:req.body.id});
+
+  var info = {
+    name: user.name,
+    picture: user.facebook.photo,
+    score: user.score,
   }
+  console.log(info);
+  res.json(info);
 });
 module.exports = router;
