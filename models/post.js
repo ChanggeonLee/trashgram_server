@@ -6,6 +6,7 @@ var schema = new Schema({
     img: {type: String, required: true , trim: true},
     hashtag: {type: String},
     recycle: {type: String , required: true},
+    recycleimg: {type:String , requried:true},
     createdAt: {type: Date, default: Date.now}
 }, {
     toJSON:{virtuals:true},
