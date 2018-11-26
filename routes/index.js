@@ -9,13 +9,12 @@ const exec = require('await-exec');
 const Post = require('../models/post');
 const User = require('../models/user');
 
+
 router.post('/hashtag', async(req, res, next) => {
-  
   var tag_data = "#"+req.body.tag;
-  
-  var user = await User.findOne({token:req.body.token});
+  var user = await User.findOne({id:req.body.id});
   user.score += 1;
-  const info = {data:'success'}; 
+   
   var recycleimgpath = "/public/images" + req.body.tag;
   var postimg = new Post({
     author : user._id,
@@ -63,7 +62,16 @@ router.post('/img',upload.single('photo'), async(req, res,next) => {
 });
 
 router.get('/imglist', async(req, res, next) => {
-  posts = await Post.find().limit(10);
+  posts = await Post.find().populate('author').limit(10);
+  console.log(posts);
+  res.json(posts);
+});
+
+router.post('/myimglist', async(req, res, next) => {
+  console.log(req.body.id);
+  user = await User.findOne({id:req.body.id});
+  console.log(user);
+  posts = await Post.find({author:user._id}).populate('author').limit(10);
   console.log(posts);
   res.json(posts);
 });

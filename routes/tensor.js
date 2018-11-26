@@ -1,5 +1,4 @@
 var exec = require('child_process').exec;
-var async = require('async');
 
 var image_path = "./../tfmodel/example.jpg";
 
