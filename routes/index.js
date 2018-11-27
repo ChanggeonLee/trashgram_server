@@ -15,7 +15,7 @@ router.post('/hashtag', async(req, res, next) => {
   var user = await User.findOne({id:req.body.id});
   user.score += 1;
    
-  var recycleimgpath = "/public/images" + req.body.tag;
+  var recycleimgpath = "images/" + req.body.tag + ".png";
   var postimg = new Post({
     author : user._id,
     img : req.body.path,
@@ -62,7 +62,7 @@ router.post('/img',upload.single('photo'), async(req, res,next) => {
 });
 
 router.get('/imglist', async(req, res, next) => {
-  posts = await Post.find().populate('author').limit(10);
+  posts = await Post.find().populate('author').limit(10).sort([['createdAt', 'descending']]);
   console.log(posts);
   res.json(posts);
 });

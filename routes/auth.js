@@ -38,8 +38,9 @@ router.post('/info', async(req, res, next) => {
   res.json(info);
 });
 
-router.post('/list', async(req, res, next) => {
+router.get('/list', async(req, res, next) => {
   var user = await User.find();
+  console.log(user);
   res.json(user);
 })
 module.exports = router;
