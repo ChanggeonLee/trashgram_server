@@ -71,7 +71,7 @@ router.post('/myimglist', async(req, res, next) => {
   console.log(req.body.id);
   user = await User.findOne({id:req.body.id});
   console.log(user);
-  posts = await Post.find({author:user._id}).populate('author').limit(10);
+  posts = await Post.find({author:user._id}).populate('author').limit(10).sort([['createdAt', 'descending']]);
   console.log(posts);
   res.json(posts);
 });
